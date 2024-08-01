@@ -5,34 +5,20 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>scoreboard</title>
     <style>
-        body {
-            font-family: Arial, sans-serif;
-            margin: 20px;
-        }
-        table {
-            width: 100%;
-            border-collapse: collapse;
-            margin-bottom: 20px;
-        }
-        table, th, td {
-            border: 1px solid black;
-        }
-        th, td {
-            padding: 8px;
-            text-align: left;
-        }
-        nav a {
-            margin: 0 10px;
-        }
+        body { font-family: Arial, sans-serif; margin: 20px; }
+        nav a { margin: 10px; text-decoration: none; }
+        table { width: 100%; border-collapse: collapse; margin-bottom: 20px; }
+        table, th, td { border: 1px solid black; }
+        th, td { padding: 8px; text-align: left; }
     </style>
 </head>
 <body>
+    <h1>scoreboard</h1>
     <nav>
         <a href="index.html">Home</a>
         <a href="add-character.html">Add Character</a>
         <a href="update-values.html">Update Values</a>
     </nav>
-    <h2>scoreboard</h2>
     <table id="scoreboardTable">
         <thead>
             <tr>
@@ -43,16 +29,14 @@
                 <th>HP</th>
             </tr>
         </thead>
-        <tbody>
-        </tbody>
+        <tbody></tbody>
     </table>
     <script>
-        let scoreboard = JSON.parse(localStorage.getItem('scoreboard')) || [];
-
         function renderTable() {
             const tableBody = document.getElementById('scoreboardTable').querySelector('tbody');
             tableBody.innerHTML = '';
 
+            let scoreboard = JSON.parse(localStorage.getItem('scoreboard')) || [];
             scoreboard.forEach(character => {
                 const row = tableBody.insertRow();
                 row.insertCell(0).innerText = character.name;
@@ -67,3 +51,4 @@
     </script>
 </body>
 </html>
+
