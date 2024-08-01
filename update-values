@@ -5,42 +5,37 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Update Values</title>
     <style>
-        body {
-            font-family: Arial, sans-serif;
-            margin: 20px;
-        }
-        nav a {
-            margin: 0 10px;
-        }
+        body { font-family: Arial, sans-serif; margin: 20px; }
+        nav a { margin: 10px; text-decoration: none; }
+        input, button { display: block; margin: 10px 0; }
     </style>
 </head>
 <body>
+    <h1>Update Values</h1>
     <nav>
         <a href="index.html">Home</a>
         <a href="add-character.html">Add Character</a>
-        <a href="characters.html">Characters</a>
+        <a href="view-characters.html">View Characters</a>
     </nav>
-    <h2>Update Values</h2>
     <form id="updateValuesForm">
-        <label for="updName">Name:</label><br>
-        <input type="text" id="updName" name="updName"><br>
-        <label for="updXP">XP (positive/negative):</label><br>
-        <input type="number" id="updXP" name="updXP"><br>
-        <label for="updAP">AP (positive/negative):</label><br>
-        <input type="number" id="updAP" name="updAP"><br>
-        <label for="updHP">HP (positive/negative):</label><br>
-        <input type="number" id="updHP" name="updHP"><br>
+        <label for="updName">Name:</label>
+        <input type="text" id="updName" name="updName">
+        <label for="updXP">XP (positive/negative):</label>
+        <input type="number" id="updXP" name="updXP">
+        <label for="updAP">AP (positive/negative):</label>
+        <input type="number" id="updAP" name="updAP">
+        <label for="updHP">HP (positive/negative):</label>
+        <input type="number" id="updHP" name="updHP">
         <button type="button" onclick="updateValues()">Update Values</button>
     </form>
     <script>
-        let characters = JSON.parse(localStorage.getItem('characters')) || [];
-
         function updateValues() {
             const name = document.getElementById('updName').value;
             const xp = parseInt(document.getElementById('updXP').value, 10) || 0;
             const ap = parseInt(document.getElementById('updAP').value, 10) || 0;
             const hp = parseInt(document.getElementById('updHP').value, 10) || 0;
 
+            let characters = JSON.parse(localStorage.getItem('characters')) || [];
             const character = characters.find(char => char.name === name);
             if (!character) {
                 alert('Name not found in characters!');
