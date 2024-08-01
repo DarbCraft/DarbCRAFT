@@ -14,6 +14,7 @@
     <h1>Welcome to Character Tracker</h1>
     <nav>
         <a href="index.html">Home</a>
+        <a href="add-character.html">Add Character</a>
         <a href="update-values.html">Update Values</a>
         <a href="scoreboard.html">Scoreboard</a>
     </nav>
@@ -25,17 +26,5 @@
         <button type="button" onclick="login()">Login</button>
     </form>
 
-    <script>
-        function login() {
-            const password = document.getElementById('password').value;
-            const correctPassword = "teacher1234"; // Change this to your desired password
-
-            if (password === correctPassword) {
-                window.location.href = "add-character.html";
-            } else {
-                alert("Incorrect password. Please try again.");
-            }
-        }
-    </script>
 </body>
 </html>
