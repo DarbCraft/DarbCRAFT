@@ -6,12 +6,13 @@
     <title>Update Values</title>
     <style>
         body { font-family: Arial, sans-serif; margin: 20px; }
-        nav a { margin: 10px; text-decoration: none; color: #000; } /* Set initial color for links */
+        nav a { margin: 10px; text-decoration: none; color: #000; }
         input, button { display: block; margin: 10px 0; }
         table { width: 100%; border-collapse: collapse; margin: 20px 0; }
         th, td { border: 1px solid #ccc; padding: 10px; text-align: left; }
         th { background-color: #f4f4f4; }
-        nav a:link, nav a:visited { color: #000; } /* Ensure visited links have the same color */
+        nav a:link, nav a:visited { color: #000; }
+        #messageDisplay { margin: 20px 0; }
     </style>
 </head>
 <body>
@@ -44,6 +45,13 @@
         </thead>
         <tbody></tbody>
     </table>
+
+    <h2>Messages</h2>
+    <div id="messageDisplay">
+        <p id="currentMessage"></p>
+        <p>Messages shown: <span id="messageCounter">0</span></p>
+        <button type="button" onclick="showRandomMessage()">Show Random Message</button>
+    </div>
 
     <script>
         function loadPlayers() {
@@ -102,6 +110,24 @@
             localStorage.setItem('characters', JSON.stringify(characters));
             document.getElementById('updateValuesForm').reset();
             loadPlayers();
+        }
+
+        function showRandomMessage() {
+            let messages = JSON.parse(localStorage.getItem('messages')) || [];
+            let shownMessages = JSON.parse(localStorage.getItem('shownMessages')) || [];
+            
+            if (shownMessages.length === messages.length) {
+                shownMessages = [];
+            }
+
+            const availableMessages = messages.filter(msg => !shownMessages.includes(msg));
+            const randomMessage = availableMessages[Math.floor(Math.random() * availableMessages.length)];
+
+            shownMessages.push(randomMessage);
+            localStorage.setItem('shownMessages', JSON.stringify(shownMessages));
+
+            document.getElementById('currentMessage').textContent = randomMessage;
+            document.getElementById('messageCounter').textContent = shownMessages.length;
         }
 
         document.addEventListener('DOMContentLoaded', loadPlayers);
