@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Home</title>
+    <title>Character Tracker</title>
     <style>
         body { font-family: Arial, sans-serif; margin: 20px; }
         nav a { margin: 10px; text-decoration: none; }
@@ -11,12 +11,31 @@
     </style>
 </head>
 <body>
-    <h1>Home</h1>
+    <h1>Welcome to Character Tracker</h1>
     <nav>
         <a href="index.html">Home</a>
-        <a href="add-character.html">Add Character</a>
         <a href="update-values.html">Update Values</a>
         <a href="scoreboard.html">Scoreboard</a>
     </nav>
+
+    <h2>Teacher Login</h2>
+    <form id="loginForm">
+        <label for="password">Password:</label>
+        <input type="password" id="password" name="password">
+        <button type="button" onclick="login()">Login</button>
+    </form>
+
+    <script>
+        function login() {
+            const password = document.getElementById('password').value;
+            const correctPassword = "teacher123"; // Change this to your desired password
+
+            if (password === correctPassword) {
+                window.location.href = "add-character.html";
+            } else {
+                alert("Incorrect password. Please try again.");
+            }
+        }
+    </script>
 </body>
 </html>
