@@ -8,6 +8,9 @@
         body { font-family: Arial, sans-serif; margin: 20px; }
         nav a { margin: 10px; text-decoration: none; }
         input, button { display: block; margin: 10px 0; }
+        table { width: 100%; border-collapse: collapse; margin-top: 20px; }
+        table, th, td { border: 1px solid black; }
+        th, td { padding: 8px; text-align: left; }
     </style>
 </head>
 <body>
@@ -17,7 +20,7 @@
         <a href="update-values.html">Update Values</a>
         <a href="scoreboard.html">Scoreboard</a>
     </nav>
-    <form id="addCharacterForm" style="display:none;">
+    <form id="addCharacterForm">
         <label for="charName">Character Name:</label>
         <input type="text" id="charName" name="charName">
         <label for="charType">Character Type:</label>
@@ -28,14 +31,30 @@
         </select>
         <button type="button" onclick="addCharacter()">Add Character</button>
     </form>
+    <table id="charactersTable">
+        <thead>
+            <tr>
+                <th>Name</th>
+                <th>Type</th>
+                <th>XP</th>
+                <th>AP</th>
+                <th>HP</th>
+                <th>Action</th>
+            </tr>
+        </thead>
+        <tbody></tbody>
+    </table>
     <script>
-        const correctPassword = "teacher1234"; // Change this to match the password in index.html
+        const correctUsername = "teacher"; // Change this to match the username in index.html
+        const correctPassword = "teacher123"; // Change this to match the password in index.html
+        const enteredUsername = prompt("Enter username to access this page:");
         const enteredPassword = prompt("Enter password to access this page:");
 
-        if (enteredPassword === correctPassword) {
+        if (enteredUsername === correctUsername && enteredPassword === correctPassword) {
             document.getElementById('addCharacterForm').style.display = 'block';
+            renderTable();
         } else {
-            alert("Incorrect password. Redirecting to home page.");
+            alert("Incorrect username or password. Redirecting to home page.");
             window.location.href = "index.html";
         }
 
@@ -67,6 +86,34 @@
             characters.push(newCharacter);
             localStorage.setItem('characters', JSON.stringify(characters));
             document.getElementById('addCharacterForm').reset();
+            renderTable();
+        }
+
+        function removeCharacter(index) {
+            let characters = JSON.parse(localStorage.getItem('characters')) || [];
+            characters.splice(index, 1);
+            localStorage.setItem('characters', JSON.stringify(characters));
+            renderTable();
+        }
+
+        function renderTable() {
+            const tableBody = document.getElementById('charactersTable').querySelector('tbody');
+            tableBody.innerHTML = '';
+
+            let characters = JSON.parse(localStorage.getItem('characters')) || [];
+            characters.forEach((character, index) => {
+                const row = tableBody.insertRow();
+                row.insertCell(0).innerText = character.name;
+                row.insertCell(1).innerText = character.type;
+                row.insertCell(2).innerText = character.xp;
+                row.insertCell(3).innerText = character.ap;
+                row.insertCell(4).innerText = character.hp;
+                const removeCell = row.insertCell(5);
+                const removeButton = document.createElement('button');
+                removeButton.innerText = 'Remove';
+                removeButton.onclick = () => removeCharacter(index);
+                removeCell.appendChild(removeButton);
+            });
         }
     </script>
 </body>
