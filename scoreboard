@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>scoreboard</title>
+    <title>Scoreboard</title>
     <style>
         body { font-family: Arial, sans-serif; margin: 20px; }
         nav a { margin: 10px; text-decoration: none; }
@@ -13,7 +13,7 @@
     </style>
 </head>
 <body>
-    <h1>scoreboard</h1>
+    <h1>Scoreboard</h1>
     <nav>
         <a href="index.html">Home</a>
         <a href="add-character.html">Add Character</a>
@@ -36,8 +36,8 @@
             const tableBody = document.getElementById('scoreboardTable').querySelector('tbody');
             tableBody.innerHTML = '';
 
-            let scoreboard = JSON.parse(localStorage.getItem('scoreboard')) || [];
-            scoreboard.forEach(character => {
+            let characters = JSON.parse(localStorage.getItem('characters')) || [];
+            characters.forEach(character => {
                 const row = tableBody.insertRow();
                 row.insertCell(0).innerText = character.name;
                 row.insertCell(1).innerText = character.type;
@@ -51,4 +51,3 @@
     </script>
 </body>
 </html>
-
