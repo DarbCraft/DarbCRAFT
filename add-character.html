@@ -7,10 +7,8 @@
     <style>
         body { font-family: Arial, sans-serif; margin: 20px; }
         nav a { margin: 10px; text-decoration: none; }
-        input, button { display: block; margin: 10px 0; }
-        table { width: 100%; border-collapse: collapse; margin-top: 20px; }
-        table, th, td { border: 1px solid black; }
-        th, td { padding: 8px; text-align: left; }
+        input, button, textarea { display: block; margin: 10px 0; }
+        textarea { width: 100%; height: 100px; }
     </style>
 </head>
 <body>
@@ -21,99 +19,25 @@
         <a href="scoreboard.html">Scoreboard</a>
     </nav>
     <form id="addCharacterForm">
-        <label for="charName">Character Name:</label>
-        <input type="text" id="charName" name="charName">
-        <label for="charType">Character Type:</label>
-        <select id="charType" name="charType">
-            <option value="Warrior">Warrior</option>
-            <option value="Healer">Healer</option>
-            <option value="Mage">Mage</option>
-        </select>
-        <button type="button" onclick="addCharacter()">Add Character</button>
+        <!-- Your existing form fields for adding characters -->
     </form>
-    <table id="charactersTable">
-        <thead>
-            <tr>
-                <th>Name</th>
-                <th>Type</th>
-                <th>XP</th>
-                <th>AP</th>
-                <th>HP</th>
-                <th>Action</th>
-            </tr>
-        </thead>
-        <tbody></tbody>
-    </table>
+    
+    <h2>Add Messages</h2>
+    <form id="addMessageForm">
+        <label for="newMessage">New Message:</label>
+        <textarea id="newMessage"></textarea>
+        <button type="button" onclick="addMessage()">Add Message</button>
+    </form>
+
     <script>
-        const correctUsername = "teacher"; // Change this to match the username in index.html
-        const correctPassword = "teacher"; // Change this to match the password in index.html
-        const enteredUsername = prompt("Enter username to access this page:");
-        const enteredPassword = prompt("Enter password to access this page:");
+        function addMessage() {
+            const newMessage = document.getElementById('newMessage').value;
+            if (!newMessage.trim()) return;
 
-        if (enteredUsername === correctUsername && enteredPassword === correctPassword) {
-            document.getElementById('addCharacterForm').style.display = 'block';
-            renderTable();
-        } else {
-            alert("Incorrect username or password. Redirecting to home page.");
-            window.location.href = "index.html";
-        }
-
-        function addCharacter() {
-            const name = document.getElementById('charName').value;
-            const type = document.getElementById('charType').value;
-            let hp, ap;
-
-            switch (type) {
-                case 'Warrior':
-                    hp = 10;
-                    ap = 15;
-                    break;
-                case 'Healer':
-                    hp = 8;
-                    ap = 20;
-                    break;
-                case 'Mage':
-                    hp = 6;
-                    ap = 30;
-                    break;
-                default:
-                    alert('Invalid character type!');
-                    return;
-            }
-
-            const newCharacter = { name, type, xp: 0, ap, hp };
-            let characters = JSON.parse(localStorage.getItem('characters')) || [];
-            characters.push(newCharacter);
-            localStorage.setItem('characters', JSON.stringify(characters));
-            document.getElementById('addCharacterForm').reset();
-            renderTable();
-        }
-
-        function removeCharacter(index) {
-            let characters = JSON.parse(localStorage.getItem('characters')) || [];
-            characters.splice(index, 1);
-            localStorage.setItem('characters', JSON.stringify(characters));
-            renderTable();
-        }
-
-        function renderTable() {
-            const tableBody = document.getElementById('charactersTable').querySelector('tbody');
-            tableBody.innerHTML = '';
-
-            let characters = JSON.parse(localStorage.getItem('characters')) || [];
-            characters.forEach((character, index) => {
-                const row = tableBody.insertRow();
-                row.insertCell(0).innerText = character.name;
-                row.insertCell(1).innerText = character.type;
-                row.insertCell(2).innerText = character.xp;
-                row.insertCell(3).innerText = character.ap;
-                row.insertCell(4).innerText = character.hp;
-                const removeCell = row.insertCell(5);
-                const removeButton = document.createElement('button');
-                removeButton.innerText = 'Remove';
-                removeButton.onclick = () => removeCharacter(index);
-                removeCell.appendChild(removeButton);
-            });
+            let messages = JSON.parse(localStorage.getItem('messages')) || [];
+            messages.push(newMessage);
+            localStorage.setItem('messages', JSON.stringify(messages));
+            document.getElementById('newMessage').value = '';
         }
     </script>
 </body>
