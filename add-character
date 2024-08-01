@@ -15,7 +15,7 @@
     <nav>
         <a href="index.html">Home</a>
         <a href="update-values.html">Update Values</a>
-        <a href="view-characters.html">View Characters</a>
+        <a href="view-characters.html">scoreboard</a>
     </nav>
     <form id="addCharacterForm">
         <label for="charName">Character Name:</label>
