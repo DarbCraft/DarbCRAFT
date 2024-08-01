@@ -17,7 +17,7 @@
         <a href="update-values.html">Update Values</a>
         <a href="scoreboard.html">Scoreboard</a>
     </nav>
-    <form id="addCharacterForm">
+    <form id="addCharacterForm" style="display:none;">
         <label for="charName">Character Name:</label>
         <input type="text" id="charName" name="charName">
         <label for="charType">Character Type:</label>
@@ -29,6 +29,16 @@
         <button type="button" onclick="addCharacter()">Add Character</button>
     </form>
     <script>
+        const correctPassword = "teacher123"; // Change this to match the password in index.html
+        const enteredPassword = prompt("Enter password to access this page:");
+
+        if (enteredPassword === correctPassword) {
+            document.getElementById('addCharacterForm').style.display = 'block';
+        } else {
+            alert("Incorrect password. Redirecting to home page.");
+            window.location.href = "index.html";
+        }
+
         function addCharacter() {
             const name = document.getElementById('charName').value;
             const type = document.getElementById('charType').value;
