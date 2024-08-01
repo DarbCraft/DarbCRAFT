@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>update-values</title>
+    <title>Update Values</title>
     <style>
         body { font-family: Arial, sans-serif; margin: 20px; }
         nav a { margin: 10px; text-decoration: none; }
@@ -15,7 +15,7 @@
     <nav>
         <a href="index.html">Home</a>
         <a href="add-character.html">Add Character</a>
-        <a href="scoreboard.html">scoreboard</a>
+        <a href="scoreboard.html">Scoreboard</a>
     </nav>
     <form id="updateValuesForm">
         <label for="updName">Name:</label>
