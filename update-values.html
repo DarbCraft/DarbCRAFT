@@ -18,8 +18,6 @@
         <a href="scoreboard.html">Scoreboard</a>
     </nav>
     <form id="updateValuesForm">
-        <label for="updName">Name:</label>
-        <input type="text" id="updName" name="updName">
         <label for="updXP">XP (positive/negative):</label>
         <input type="number" id="updXP" name="updXP">
         <label for="updAP">AP (positive/negative):</label>
@@ -28,27 +26,56 @@
         <input type="number" id="updHP" name="updHP">
         <button type="button" onclick="updateValues()">Update Values</button>
     </form>
+
+    <h2>Select Players</h2>
+    <div id="playerList"></div>
+
     <script>
+        function loadPlayers() {
+            const playersContainer = document.getElementById('playerList');
+            playersContainer.innerHTML = '';
+            const characters = JSON.parse(localStorage.getItem('characters')) || [];
+            characters.forEach(char => {
+                const checkbox = document.createElement('input');
+                checkbox.type = 'checkbox';
+                checkbox.id = char.name;
+                checkbox.value = char.name;
+                const label = document.createElement('label');
+                label.htmlFor = char.name;
+                label.textContent = char.name;
+                const br = document.createElement('br');
+                playersContainer.appendChild(checkbox);
+                playersContainer.appendChild(label);
+                playersContainer.appendChild(br);
+            });
+        }
+
         function updateValues() {
-            const name = document.getElementById('updName').value;
             const xp = parseInt(document.getElementById('updXP').value, 10) || 0;
             const ap = parseInt(document.getElementById('updAP').value, 10) || 0;
             const hp = parseInt(document.getElementById('updHP').value, 10) || 0;
 
-            let characters = JSON.parse(localStorage.getItem('characters')) || [];
-            const character = characters.find(char => char.name === name);
-            if (!character) {
-                alert('Name not found in characters!');
-                return;
-            }
+            const selectedPlayers = Array.from(document.querySelectorAll('#playerList input:checked')).map(checkbox => checkbox.value);
 
-            character.xp += xp;
-            character.ap += ap;
-            character.hp += hp;
+            let characters = JSON.parse(localStorage.getItem('characters')) || [];
+            characters = characters.map(char => {
+                if (selectedPlayers.includes(char.name)) {
+                    return {
+                        ...char,
+                        xp: char.xp + xp,
+                        ap: char.ap + ap,
+                        hp: char.hp + hp
+                    };
+                }
+                return char;
+            });
 
             localStorage.setItem('characters', JSON.stringify(characters));
             document.getElementById('updateValuesForm').reset();
+            loadPlayers();
         }
+
+        document.addEventListener('DOMContentLoaded', loadPlayers);
     </script>
 </body>
 </html>
