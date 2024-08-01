@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Add Character</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+        }
+        nav a {
+            margin: 0 10px;
+        }
+    </style>
+</head>
+<body>
+    <nav>
+        <a href="index.html">Home</a>
+        <a href="update-values.html">Update Values</a>
+        <a href="characters.html">Characters</a>
+    </nav>
+    <h2>Add Character</h2>
+    <form id="addCharacterForm">
+        <label for="charName">Character Name:</label><br>
+        <input type="text" id="charName" name="charName"><br>
+        <label for="charType">Character Type:</label><br>
+        <select id="charType" name="charType">
+            <option value="Warrior">Warrior</option>
+            <option value="Healer">Healer</option>
+            <option value="Mage">Mage</option>
+        </select><br>
+        <button type="button" onclick="addCharacter()">Add Character</button>
+    </form>
+    <script>
+        let characters = JSON.parse(localStorage.getItem('characters')) || [];
+
+        function addCharacter() {
+            const name = document.getElementById('charName').value;
+            const type = document.getElementById('charType').value;
+            let hp, ap;
+
+            switch (type) {
+                case 'Warrior':
+                    hp = 10;
+                    ap = 15;
+                    break;
+                case 'Healer':
+                    hp = 8;
+                    ap = 20;
+                    break;
+                case 'Mage':
+                    hp = 6;
+                    ap = 30;
+                    break;
+                default:
+                    alert('Invalid character type!');
+                    return;
+            }
+
+            const newCharacter = { name, type, xp: 0, ap, hp };
+            characters.push(newCharacter);
+            localStorage.setItem('characters', JSON.stringify(characters));
+            document.getElementById('addCharacterForm').reset();
+        }
+    </script>
+</body>
+</html>
