@@ -33,6 +33,26 @@
             border-radius: 10px;
         }
     </style>
+    <!-- Firebase App (the core Firebase SDK) -->
+  <script src="https://www.gstatic.com/firebasejs/9.0.0/firebase-app.js"></script>
+  <!-- Add Firebase products that you want to use -->
+  <script src="https://www.gstatic.com/firebasejs/9.0.0/firebase-auth.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/9.0.0/firebase-firestore.js"></script>
+
+  <script>
+    // Web app's Firebase configuration
+    const firebaseConfig = {
+  apiKey: "AIzaSyARPzvh5lO8cj3k7_0WhQ6Ofp9gZpgifGM",
+  authDomain: "darbclassbeta.firebaseapp.com",
+  projectId: "darbclassbeta",
+  storageBucket: "darbclassbeta.appspot.com",
+  messagingSenderId: "254143610454",
+  appId: "1:254143610454:web:51752c298b3d07f77a85f7",
+  measurementId: "G-XFKLJM4ES1"
+    };
+    // Initialize Firebase
+    firebase.initializeApp(firebaseConfig);
+  </script>
 </head>
 <body>
     <h1>DårbCRÅFT</h1>
@@ -43,6 +63,53 @@
         <a href="scoreboard.html">Scoreboard</a>
         <a href="test-space.html">Test Space</a>
     </nav>
+    <div id="login-div">
+    <input type="email" id="email" placeholder="Email">
+    <input type="password" id="password" placeholder="Password">
+    <button onclick="login()">Login</button>
+    <button onclick="signup()">Sign Up</button>
+  </div>
+
+  <!-- Firebase Authentication functions -->
+  <script>
+    function login() {
+      var email = document.getElementById("email").value;
+      var password = document.getElementById("password").value;
+      firebase.auth().signInWithEmailAndPassword(email, password)
+        .then((userCredential) => {
+          // Signed in
+          var user = userCredential.user;
+          console.log("User logged in: ", user.email);
+          // Redirect to student page
+          window.location.href = 'student.html';
+        })
+        .catch((error) => {
+          var errorCode = error.code;
+          var errorMessage = error.message;
+          console.error("Error: ", errorCode, errorMessage);
+        });
+    }
+
+    function signup() {
+      var email = document.getElementById("email").value;
+      var password = document.getElementById("password").value;
+      firebase.auth().createUserWithEmailAndPassword(email, password)
+        .then((userCredential) => {
+          // Signed in
+          var user = userCredential.user;
+          console.log("User signed up: ", user.email);
+          // Redirect to student page
+          window.location.href = 'student.html';
+        })
+        .catch((error) => {
+          var errorCode = error.code;
+          var errorMessage = error.message;
+          console.error("Error: ", errorCode, errorMessage);
+        });
+    }
+  </script>
+</body>
+</html>
 
 </body>
 </html>
