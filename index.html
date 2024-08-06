@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DårbCRÅFT</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+            background-image: url('https://github.com/DarbCraft/DarbCRAFT/blob/main/images/open-uri20160811-32147-h3t28q_2fe94cab.jpeg?raw=true');
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+            background-attachment: fixed;
+            color: #fff; /* Optional: Makes the text white for better readability on dark backgrounds */
+        }
+        nav a {
+            margin: 10px;
+            text-decoration: none;
+            color: #fff; /* Makes the navigation links white */
+        }
+        nav a:link, nav a:visited {
+            color: #fff; /* Ensures visited links remain white */
+        }
+        input, button {
+            display: block;
+            margin: 10px 0;
+        }
+        form {
+            background-color: rgba(0, 0, 0, 0.5); /* Optional: Adds a semi-transparent background to the form for better readability */
+            padding: 20px;
+            border-radius: 10px;
+        }
+    </style>
+    <!-- Firebase App (the core Firebase SDK) -->
+  <script src="https://www.gstatic.com/firebasejs/9.0.0/firebase-app.js"></script>
+  <!-- Add Firebase products that you want to use -->
+  <script src="https://www.gstatic.com/firebasejs/9.0.0/firebase-auth.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/9.0.0/firebase-firestore.js"></script>
+
+  <script>
+    // Web app's Firebase configuration
+        const firebaseConfig = {
+  apiKey: "AIzaSyDMKGYdzdzAcM9gv2ZJMsvpTq9vPQGcOl0",
+  authDomain: "darbcraft-34ac2.firebaseapp.com",
+  projectId: "darbcraft-34ac2",
+  storageBucket: "darbcraft-34ac2.appspot.com",
+  messagingSenderId: "897824122443",
+  appId: "1:897824122443:web:8fc1013b4ebcd4fdfe8fce",
+  measurementId: "G-RX2TK52Z1E"
+    };
+    // Initialize Firebase
+    firebase.initializeApp(firebaseConfig);
+  </script>
+</head>
+<body>
+    <h1>DårbCRÅFT</h1>
+    <nav>
+        <a href="index.html">Home</a>
+        <a href="add-character.html">Add Character</a>
+        <a href="update-values.html">Update Values</a>
+        <a href="scoreboard.html">Scoreboard</a>
+        <a href="test-space.html">Test Space</a>
+    </nav>
+    <div id="login-div">
+    <input type="email" id="email" placeholder="Email">
+    <input type="password" id="password" placeholder="Password">
+    <button onclick="login()">Login</button>
+    <button onclick="signup()">Sign Up</button>
+  </div>
+
+  <!-- Firebase Authentication functions -->
+  <script>
+    function login() {
+      var email = document.getElementById("email").value;
+      var password = document.getElementById("password").value;
+      firebase.auth().signInWithEmailAndPassword(email, password)
+        .then((userCredential) => {
+          // Signed in
+          var user = userCredential.user;
+          console.log("User logged in: ", user.email);
+          // Redirect to student page
+          window.location.href = 'student.html';
+        })
+        .catch((error) => {
+          var errorCode = error.code;
+          var errorMessage = error.message;
+          console.error("Error: ", errorCode, errorMessage);
+        });
+    }
+
+    function signup() {
+      var email = document.getElementById("email").value;
+      var password = document.getElementById("password").value;
+      firebase.auth().createUserWithEmailAndPassword(email, password)
+        .then((userCredential) => {
+          // Signed in
+          var user = userCredential.user;
+          console.log("User signed up: ", user.email);
+          // Redirect to student page
+          window.location.href = 'student.html';
+        })
+        .catch((error) => {
+          var errorCode = error.code;
+          var errorMessage = error.message;
+          console.error("Error: ", errorCode, errorMessage);
+        });
+    }
+  </script>
+</body>
+</html>
