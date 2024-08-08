@@ -43,3 +43,42 @@
         }
     </style>
 </head>
+<body>
+    <h1>Scoreboard</h1>
+    <nav>
+        <a href="index.html">Home</a>
+        <a href="settings.html">Settings</a>
+        <a href="update-values.html">Update Values</a>
+    </nav>
+    <table id="scoreboardTable">
+        <thead>
+            <tr>
+                <th>Name</th>
+                <th>Type</th>
+                <th>XP</th>
+                <th>AP</th>
+                <th>HP</th>
+            </tr>
+        </thead>
+        <tbody></tbody>
+    </table>
+    <script>
+        function renderTable() {
+            const tableBody = document.getElementById('scoreboardTable').querySelector('tbody');
+            tableBody.innerHTML = '';
+
+            let characters = JSON.parse(localStorage.getItem('characters')) || [];
+            characters.forEach(character => {
+                const row = tableBody.insertRow();
+                row.insertCell(0).innerText = character.name;
+                row.insertCell(1).innerText = character.type;
+                row.insertCell(2).innerText = character.xp;
+                row.insertCell(3).innerText = character.ap;
+                row.insertCell(4).innerText = character.hp;
+            });
+        }
+
+        document.addEventListener('DOMContentLoaded', renderTable);
+    </script>
+</body>
+</html>
